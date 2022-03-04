@@ -1,0 +1,1 @@
+this repo shows how to set user permission in shell
