@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Connects to server 3.236.95.74 with key in ~/.ssh/school
+
+ssh -i ~/.ssh/id_rsa ubuntu@34.239.148.165
