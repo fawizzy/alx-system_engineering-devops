@@ -1,24 +1,22 @@
 #!/usr/bin/python3
-"""
-Contains the number_of_subscribers function
-"""
-
+"""Contains top_ten function"""
 import requests
-
-client_id = "KR3WYTJDillnHTGIE2lMzw"
-secret_key = "09hHAPWLH4ghnvAaTsgTzhe-hYySZg"
-developer = "Affectionate_Earth_9"
-
-auth = requests.auth.HTTPBasicAuth(client_id, secret_key)
 
 
 def top_ten(subreddit):
-    """returns the number of subscribers for a given subreddit"""
-    if subreddit is None or type(subreddit) is not str:
-        return 0
-    r = requests.get('http://www.reddit.com/r/{}/hot.json'.format(subreddit),
-                     headers={'User-Agent': 'hello'}).json()
-    hot = r.get("data").get("children")
-    for i in range(10):
-        print(hot[i].get("data").get("title"))
-    
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "0x16-api_advanced:project:\
+v1.0.0 (by /u/firdaus_cartoon_jr)"
+    }
+    params = {
+        "limit": 10
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
+        print("None")
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
